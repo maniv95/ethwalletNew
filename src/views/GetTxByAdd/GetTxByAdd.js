@@ -40,7 +40,6 @@ class GetTxByAdd extends Component {
         <div className="App">
             <br/><br/><br/><br/><br/><br/>
               <Grid>
-                  <div>
                 <Row>
                 <Col>
                 <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'30vw'}}>
@@ -63,7 +62,6 @@ class GetTxByAdd extends Component {
               </Card>
                 </Col>
                 </Row>
-                </div>
                </Grid>
         </div>
        );

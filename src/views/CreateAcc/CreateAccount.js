@@ -29,7 +29,6 @@ class CreateAccount extends Component{
         <div className="App">
               <br/><br/>
               <Grid>
-                <div>
                 <Row>
                 <Col>
                 <Card body inverse style={{backgroundColor:'#222', borderColor:'#222',height:'28vw'}}>
@@ -54,7 +53,6 @@ class CreateAccount extends Component{
                 </Card>
                 </Col>
                 </Row>
-                </div>
                 </Grid>
         </div>
       );

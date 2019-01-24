@@ -46,11 +46,10 @@ class Login extends Component{
         <div className="App">
              <br/>
               <Grid>
-                <div>
                 <Row>
                 <Col>
                 <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'40vw'}}>
-                  <CardBody><br/>
+                  <CardBody>
                   <h3 style={{color:"white"}}>Login Using KeyStore File</h3><br/>
                 <Form>
                     <input type = "file" onChange={this.onChange}/>
@@ -82,7 +81,6 @@ class Login extends Component{
               </Card>
                 </Col>
                 </Row>
-                </div>
             </Grid>
         </div>
       );

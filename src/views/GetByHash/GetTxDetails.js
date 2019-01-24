@@ -54,7 +54,6 @@ class GetDetails extends Component {
   			<div className="App">
             <br/><br/>
               <Grid>
-               <div>
                 <Row>
                 <Col>
                 <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'52vw',overflow:'scroll'}}>
@@ -111,7 +110,6 @@ class GetDetails extends Component {
               </Card>
                 </Col>
                 </Row>
-                </div>
                </Grid>
         </div>
   	   );

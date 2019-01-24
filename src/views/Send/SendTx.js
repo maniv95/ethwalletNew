@@ -80,7 +80,6 @@ class SendTx extends Component {
         <div className="App">
         <br/>
               <Grid>
-                <div>
                 <Row>
                 <Col>
                 <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'70vw'}}>
@@ -94,10 +93,10 @@ class SendTx extends Component {
                     </div><br/>
                       <Button onClick = {this.onLogin}>Login</Button><br/>
                   <Form>
-                   <b style={{color:"white"}}>Receiver Address</b> <br/>
+                   <b>Receiver Address</b> <br/>
                      <input type="text" value={this.state.Receiver} onChange={this.updateReceiver} placeholder="Enter Receiver Address"/>
                    <br/><br/>
-                   <b style={{color:"white"}}>Amount To Send</b><br/><br/>
+                   <b>Amount To Send</b><br/><br/>
                    <input type="text" value={this.state.Amount} onChange={this.updateAmount} placeholder="Enter Amount"/>
                    <br/>
                   </Form>
@@ -148,7 +147,6 @@ class SendTx extends Component {
               </Card>
                 </Col>
                 </Row>
-                </div>
           </Grid>
         </div>
        );
