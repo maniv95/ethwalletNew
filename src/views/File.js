@@ -10,6 +10,8 @@ const fileDownload = require('react-file-download');
 //------------Gas-Price-------------//
 var gas=3000000;
 exports.gas=gas;
+//----Sweet-Alerts------//
+var sweetAlert = require('sweetalert');
 //-----------KeyStore-Generation-And-Private-Key-Extraction---------------//
 function KeyStoreGen(Password){
 	var params = { keyBytes: 32, ivBytes: 16 };
@@ -26,6 +28,7 @@ function KeyStoreGen(Password){
 	var keyObject = keythereum.dump(Password, dk.privateKey, dk.salt, dk.iv, options);
 	var now = new Date();
 	fileDownload(keythereum.exportToFile(keyObject).toString(),'UTC--' + now.getFullYear() + "-"+ now.getMonth() + "-" + now.getDate() +"."+Number(new Date())+"--"+keyObject.address);
+	sweetAlert("Account Created","KeyStore File Downloaded","success");
 	var PrivateKey = dk.privateKey.toString('hex');
 	return PrivateKey;
 }
@@ -36,6 +39,7 @@ function LoginWithKeyStoreFile(KeyStore,Password){
     var khex="0x"
     var address= khex.concat(json.address);
     var account = web3.personal.unlockAccount(address,Password);
+    sweetAlert("Logged In",address,"success");
     console.log(account);
 }
 exports.LoginWithKeyStoreFile=LoginWithKeyStoreFile;
@@ -51,6 +55,7 @@ function SendTx(FromAdd,ToAdd,amt,Password,gas){
 	console.log("unlockAccount Success",FromAdd,unlockAccount);
 	var Amount = web3.toWei(amt, "Ether")
 	var txHash = web3.eth.sendTransaction({from:FromAdd,to:ToAdd, value:Amount,gas:gas});
+	sweetAlert("Transfered",FromAdd,"to", ToAdd, "success");
 	return txHash;
 }
 exports.SendTx=SendTx;
@@ -62,10 +67,11 @@ function SendEntireBalance(FromAdd,ToAdd,Password,gas){
     var value = balance.minus(gas * price);
     if (value.greaterThan(0)) {
         var txn = web3.eth.sendTransaction({from: FromAdd, to: ToAdd, gasPrice: price, gas: gas, value: value});
-        alert("Transfer",FromAdd,"to", ToAdd, ":","TxHash:",txn);
+        sweetAlert("Transfer",FromAdd,"to", ToAdd, "success");
         return txn;
     }
-    alert("  Transfer "+ FromAdd +" to "+ ToAdd +": (No funds available)");
+    // sweetAlert(" Transfer "+ FromAdd +" to "+ ToAdd +": (No funds available)","warning");
+    sweetAlert("No Funds Available","Transcation Failed","error")
     console.log(unlockAccount);
     return null;
 }
@@ -73,6 +79,7 @@ exports.SendEntireBalance=SendEntireBalance;
 //--------------Get-Transactions---------------//
 function GetTx(txHash){
 	var tx = web3.eth.getTransaction(txHash);
+	sweetAlert("Updated","Transcation Details Updated","success")
 	return tx;
 }
 exports.GetTx=GetTx;

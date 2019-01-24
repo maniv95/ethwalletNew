@@ -64,7 +64,6 @@ class SendEntireBal extends Component {
         <div className="App">
         <br/>
               <Grid>
-                <div>
                 <Row>
                 <Col>
                 <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'55vw'}}>
@@ -120,7 +119,6 @@ class SendEntireBal extends Component {
               </Card>
                 </Col>
                 </Row>
-                </div>
                </Grid>
         </div>
        );
