@@ -45,7 +45,8 @@ function LoginWithKeyStoreFile(KeyStore,Password){
 exports.LoginWithKeyStoreFile=LoginWithKeyStoreFile;
 //----------------Check-Balance---------------------//
 function ViewBalance(BlockchainAddress){
-	var Bal = web3.eth.getBalance(BlockchainAddress);
+	var bal = web3.eth.getBalance(BlockchainAddress);
+	var Bal = web3.toWei(bal,'ether');
 	return Bal.toString();
 }
 exports.ViewBalance=ViewBalance;
@@ -53,7 +54,7 @@ exports.ViewBalance=ViewBalance;
 function SendTx(FromAdd,ToAdd,amt,Password,gas){
 	var unlockAccount = web3.personal.unlockAccount(FromAdd,Password);
 	console.log("unlockAccount Success",FromAdd,unlockAccount);
-	var Amount = web3.toWei(amt, "Ether")
+	var Amount = web3.toWei(amt, "ether")
 	var txHash = web3.eth.sendTransaction({from:FromAdd,to:ToAdd, value:Amount,gas:gas});
 	sweetAlert("Transfered",FromAdd,"to", ToAdd, "success");
 	return txHash;
@@ -63,7 +64,8 @@ exports.SendTx=SendTx;
 function SendEntireBalance(FromAdd,ToAdd,Password,gas){
 	var unlockAccount = web3.personal.unlockAccount(FromAdd,Password);
     var price = web3.eth.gasPrice;  // current average price; or set your own
-    var balance = web3.eth.getBalance(FromAdd);
+    var bal = web3.eth.getBalance(FromAdd);
+    var balance = web3.toWei(bal,'ether');
     var value = balance.minus(gas * price);
     if (value.greaterThan(0)) {
         var txn = web3.eth.sendTransaction({from: FromAdd, to: ToAdd, gasPrice: price, gas: gas, value: value});
