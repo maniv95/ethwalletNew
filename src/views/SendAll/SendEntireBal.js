@@ -11,7 +11,7 @@ class SendEntireBal extends Component {
           Balance:'null',
           Receiver1:'',
           key:'',
-          gas:'3000000',
+          gas:'null',
           txn:'null'
         }
     this.onReaderLoad = this.onReaderLoad.bind(this); 
@@ -41,6 +41,7 @@ class SendEntireBal extends Component {
         Main.LoginWithKeyStoreFile(this.state.key,this.state.Password1);
         var Balance = Main.ViewBalance(this.state.key.address);
         this.setState({Balance:Balance});
+        this.setState({gas: Main.gas});
         var khex="0x";
         var address=khex.concat(this.state.key.address);
         this.setState({BCAddress:address});
@@ -66,7 +67,7 @@ class SendEntireBal extends Component {
               <Grid>
                 <Row>
                 <Col>
-                <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'55vw'}}>
+                <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'53vw'}}>
                   <CardBody>
                     <h4> Login To Send Entire Ethers</h4><br/>
                 <Form>

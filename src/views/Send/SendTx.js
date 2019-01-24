@@ -15,7 +15,7 @@ class SendTx extends Component {
           TxCount:'null',
           ATxHash:'null',
           key:'',
-          gas:'3000000',
+          gas:'null',
           txnn:''
         }
         this.onReaderLoad = this.onReaderLoad.bind(this); 
@@ -58,6 +58,7 @@ class SendTx extends Component {
         var khex="0x";
         var address=khex.concat(this.state.key.address);
         this.setState({BCAddress:address});
+        this.setState({gas: Main.gas});
       }
       catch(error){
         console.log(error);
@@ -65,9 +66,9 @@ class SendTx extends Component {
     }
     onSendTx = async() =>{
       try{
-        var Tx = Main.SendTx(this.state.BCAddress,this.state.Receiver,this.state.Amount,this.state.Password1,this.state.gas);
-        console.log(Tx);
-        this.setState({ATxHash:Tx});
+        var tx = Main.SendTx(this.state.BCAddress,this.state.Receiver,this.state.Amount,this.state.Password1,this.state.gas);
+        console.log(tx);
+        this.setState({ATxHash:tx});
         var Count = Main.GetTxCount(this.state.BCAddress);
         this.setState({TxCount:Count});
       }
@@ -84,7 +85,7 @@ class SendTx extends Component {
                 <Col>
                 <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'70vw'}}>
                   <CardBody>
-                <h4> Login To Send Ether</h4><br/>
+                <h4>Login To Send Ether</h4><br/>
                 <Form>
                     <input type = "file" onChange={this.onChange}/>
                 </Form><br/>
@@ -102,7 +103,7 @@ class SendTx extends Component {
                   </Form>
                   <br/>
                   <div>
-                        <button onClick={this.onSendTx}>Send</button>
+                        <button class = "btn btn-default" onClick={this.onSendTx}>Send</button>
                   </div>
                   <br/>
                 <Table bordered responsive>

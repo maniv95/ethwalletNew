@@ -52,18 +52,18 @@ class GetDetails extends Component {
   	render(){
   		return(
   			<div className="App">
-            <br/><br/>
+            <br/>
               <Grid>
                 <Row>
                 <Col>
-                <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'52vw',overflow:'scroll'}}>
-                  <CardBody><br/>
+                <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'50vw',overflow:'scroll'}}>
+                  <CardBody>
                      <Form>
-                        <b>Transaction Hash</b> <br/><br/>
+                        <b>Transaction Hash</b><br/><br/>
                         <input type="text" value={this.state.GTxHash} onChange={this.updateGTxHash} placeholder="Enter Tx Hash"/><br/>
                      </Form><br/>
                        <Button onClick={this.onGetTx}>Get TxDetails</Button>
-                       <br/><br/><br/><br/>
+                       <br/><br/>
                      <Table>
                         <thead>
                   			<tr>

@@ -15,7 +15,7 @@ var dashRoutes = [
   },
   {
     path: "/createaccount",
-    name: "New Account",
+    name: "Create Account",
     icon: "nc-icon nc-simple-add",
     component: NewAcc
   },

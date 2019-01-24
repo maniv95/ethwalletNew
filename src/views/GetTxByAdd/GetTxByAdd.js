@@ -42,8 +42,8 @@ class GetTxByAdd extends Component {
               <Grid>
                 <Row>
                 <Col>
-                <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'30vw'}}>
-                  <CardBody><br/>
+                <Card body inverse style={{width:"100%",backgroundColor:'#222', borderColor:'#222',height:'29vw'}}>
+                  <CardBody>
                     <Form>
                       <b>Enter Blockchain Address</b><br/><br/>
                       <input type="text" value={this.state.BCAddress} onChange={this.updateBCAddress} placeholder="Enter Blockchain Address"/><br/><br/>
@@ -54,10 +54,10 @@ class GetTxByAdd extends Component {
                       <b>End Block Number</b><br/><br/>
                       <input type="text" value={this.state.endBlockNumber} onChange={this.updateEndBlockNumber} placeholder="Enter EndBlockNumber"/>
                     </Form>
-                      <br/><br/>
+                      <br/>
                     <Button onClick={this.onGetTxByAddress}>Get Transactions</Button>
                     <br/><br/>
-                  <br/><br/><br/><br/>
+                  <br/>
                   </CardBody>
               </Card>
                 </Col>

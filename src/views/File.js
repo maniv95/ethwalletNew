@@ -4,7 +4,7 @@ const keythereum = require("keythereum");
 //--------Web3---------//
 var Web3 = require('web3');
 //----------Initialising-RPC-Port------------//
-var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+var web3 = new Web3(new Web3.providers.HttpProvider("http://192.168.0.115:8545"));
 //------------Node-Module-For-File-Download-----------------//
 const fileDownload = require('react-file-download');
 //------------Gas-Price-------------//
@@ -12,6 +12,7 @@ var gas=3000000;
 exports.gas=gas;
 //----Sweet-Alerts------//
 var sweetAlert = require('sweetalert');
+// var swal = require('sweetalert');
 //-----------KeyStore-Generation-And-Private-Key-Extraction---------------//
 function KeyStoreGen(Password){
 	var params = { keyBytes: 32, ivBytes: 16 };
@@ -54,27 +55,25 @@ exports.ViewBalance=ViewBalance;
 function SendTx(FromAdd,ToAdd,amt,Password,gas){
 	var unlockAccount = web3.personal.unlockAccount(FromAdd,Password);
 	console.log("unlockAccount Success",FromAdd,unlockAccount);
-	var Amount = web3.toWei(amt, "ether")
+	var Amount = web3.toWei(amt, "ether");
 	var txHash = web3.eth.sendTransaction({from:FromAdd,to:ToAdd, value:Amount,gas:gas});
-	sweetAlert("Transfered",FromAdd,"to", ToAdd, "success");
+	sweetAlert("Done","Transaction Sent","success");
 	return txHash;
 }
 exports.SendTx=SendTx;
 //----------------------Transfer-Entire-Balance------------------//
 function SendEntireBalance(FromAdd,ToAdd,Password,gas){
 	var unlockAccount = web3.personal.unlockAccount(FromAdd,Password);
-    var price = web3.eth.gasPrice;  // current average price; or set your own
-    var bal = web3.eth.getBalance(FromAdd);
-    var balance = web3.toWei(bal,'ether');
+	console.log(unlockAccount);
+    var price = web3.eth.gasPrice;
+    var balance = web3.eth.getBalance(FromAdd);
     var value = balance.minus(gas * price);
-    if (value.greaterThan(0)) {
+    if (value.greaterThan(0)){
         var txn = web3.eth.sendTransaction({from: FromAdd, to: ToAdd, gasPrice: price, gas: gas, value: value});
-        sweetAlert("Transfer",FromAdd,"to", ToAdd, "success");
+        sweetAlert("Done","Transcation Success","success");
         return txn;
     }
-    // sweetAlert(" Transfer "+ FromAdd +" to "+ ToAdd +": (No funds available)","warning");
-    sweetAlert("No Funds Available","Transcation Failed","error")
-    console.log(unlockAccount);
+    sweetAlert("Insufficient Funds","Transcation Failed","error");
     return null;
 }
 exports.SendEntireBalance=SendEntireBalance;
@@ -95,16 +94,16 @@ exports.GetTxCount=GetTxCount;
 function getTxByAddress(myaddress, startBlockNumber, endBlockNumber) {
        if (endBlockNumber == null) {
           endBlockNumber = web3.eth.blockNumber;
-          console.log("Using endBlockNumber: " + endBlockNumber);
+          // console.log("Using endBlockNumber: " + endBlockNumber);
         }
 	   if (startBlockNumber == null) {
 	      startBlockNumber = endBlockNumber - 1000;
-	      console.log("Using startBlockNumber: " + startBlockNumber);
+	      // console.log("Using startBlockNumber: " + startBlockNumber);
 	    }
-        console.log("Searching for transactions to/from account \"" + myaddress + "\" within blocks "  + startBlockNumber + " and " + endBlockNumber);
+        // console.log("Searching for transactions to/from account \"" + myaddress + "\" within blocks "  + startBlockNumber + " and " + endBlockNumber);
 	   for (var i = startBlockNumber; i <= endBlockNumber; i++) {
 	     if (i % 1000 === 0) {
-	      console.log("Searching block " + i);
+	      // console.log("Searching block " + i);
 	     }
 	     var block = web3.eth.getBlock(i, true);
 	     if (block != null && block.transactions != null) {
