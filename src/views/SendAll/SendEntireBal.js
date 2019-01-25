@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Table,Grid,Button,Form} from 'react-bootstrap';
 import { Card,CardBody,Row,Col} from 'reactstrap';
+import $ from 'jquery';
 import Main from 'views/File.js';
 class SendEntireBal extends Component {
     constructor(props){
@@ -19,6 +20,7 @@ class SendEntireBal extends Component {
     this.updateReceiver1 = this.updateReceiver1.bind(this);
     this.onLogin = this.onLogin.bind(this);
     this.onSendEntireBal = this.onSendEntireBal.bind(this);
+    this.clearFields = this.clearFields.bind(this);
   }
   updatePasswordWhenLogin(d){
       this.setState({Password1: d.target.value});
@@ -53,13 +55,24 @@ class SendEntireBal extends Component {
   onSendEntireBal = async() =>{
       try{
         var txnn = Main.SendEntireBalance(this.state.BCAddress,this.state.Receiver1,this.state.Password1,this.state.gas);
-        console.log(txnn);
         this.setState({txn: txnn})
       }
       catch(error){
         console.log(error);
       }
     }
+  clearFields = () => { 
+    this.setState({
+      Password1:'',
+      BCAddress:'null',
+      Balance:'null',
+      Receiver1:'',
+      key:'',
+      gas:'null',
+      txn:'null'
+    });
+    $("#FileSelect").val('');
+  }
     render(){
       return(
         <div className="App">
@@ -71,7 +84,7 @@ class SendEntireBal extends Component {
                   <CardBody>
                     <h4> Login To Send Entire Ethers</h4><br/>
                 <Form>
-                    <input type = "file" onChange={this.onChange}/>
+                    <input type = "file" id="FileSelect" onChange={this.onChange}/>
                 </Form><br/>
                     <div>
                       <input type = "password" value = {this.state.Password1} onChange = {this.updatePasswordWhenLogin} placeholder=" Enter Password "/>
@@ -84,6 +97,7 @@ class SendEntireBal extends Component {
                     <br/>
                          <div>
                            <Button onClick={this.onSendEntireBal}>Send Entire Balance</Button>
+                           <Button name="clearFields" onClick={this.clearFields}>Clear</Button>
                          </div>
                          <br/>
                     <Table>

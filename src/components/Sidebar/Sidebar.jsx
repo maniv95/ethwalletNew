@@ -35,7 +35,7 @@ class Sidebar extends React.Component {
         <div className="logo">
           <a
             href="https://www.ethereum.org"
-            className="simple-text logo-mini"
+            className="simple-text logo-mini" 
           >
             <div className="logo-img">
               <img src={logo} alt="react-logo" />
@@ -45,7 +45,7 @@ class Sidebar extends React.Component {
             href="http://alykasinnovatiions.com"
             className="simple-text logo-normal"
           >
-           Wallet
+           Ether-Wallet
           </a>
         </div>
         <div className="sidebar-wrapper" ref="sidebar">

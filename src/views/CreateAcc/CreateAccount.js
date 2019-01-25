@@ -11,10 +11,17 @@ class CreateAccount extends Component{
       }
       this.updatePassword = this.updatePassword.bind(this);
       this.onCreate = this.onCreate.bind(this);
+      this.clearFields = this.clearFields.bind(this);
   }
   updatePassword(a){
       this.setState({Password: a.target.value});
     }
+  clearFields = () => { 
+    this.setState({
+      Password:'',
+      PrivateKey:'null'
+    });
+  }
   onCreate = async () => {
     try{
       var a = Main.KeyStoreGen(this.state.Password);
@@ -39,7 +46,8 @@ class CreateAccount extends Component{
                       <input type ="password" value = {this.state.Password} onChange = {this.updatePassword} placeholder="Enter Password"/>
                    </div>
                    <br/><br/>
-                    <Button onClick = {this.onCreate}>Download Keystore</Button><br/><br/>
+                    <Button onClick = {this.onCreate}>Download Keystore</Button>  <Button name="clearFields" onClick={this.clearFields}>Clear</Button>
+                    <br/><br/>
                    <br/>
                     <Table>
                     <tbody>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Table,Grid,Button,Form} from 'react-bootstrap';
 import { Card,CardBody,Row,Col} from 'reactstrap';
+import $ from 'jquery';
 import Main from 'views/File.js';
 class Login extends Component{
   constructor(props){
@@ -9,14 +10,29 @@ class Login extends Component{
         Password1:'',
         BCAddress:'null',
         Balance:'null',
-        key:''
+        key:'',
       }
       this.onReaderLoad = this.onReaderLoad.bind(this); 
       this.updatePasswordWhenLogin = this.updatePasswordWhenLogin.bind(this);
       this.onLogin = this.onLogin.bind(this);
+      this.clearFields = this.clearFields.bind(this);
+      this.resetFile =  this.resetFile.bind(this);
   }
     updatePasswordWhenLogin(d){
       this.setState({Password1: d.target.value});
+    }
+    resetFile = () => {
+      const file = document.querySelector('.file');
+      file.value = '';
+    }
+    clearFields = () => { 
+      this.setState({
+        Password1:'',
+        BCAddress:'null',
+        Balance:'null',
+        key:''
+      });
+      $("#FileSelect").val('');
     }
     onChange = async(event)=>{
       let reader = new FileReader();
@@ -52,12 +68,13 @@ class Login extends Component{
                   <CardBody>
                   <h3 style={{color:"white"}}>Login Using KeyStore File</h3><br/>
                 <Form>
-                    <input type = "file" onChange={this.onChange}/>
+                    <input type = "file" id ="FileSelect" onChange={this.onChange}/>
                 </Form><br/><br/>
                     <div>
                       <input type = "password" value = {this.state.Password1} onChange = {this.updatePasswordWhenLogin} placeholder=" Enter Password "/>
                     </div><br/>
-                      <Button onClick = {this.onLogin}>Login</Button><br/><br/>
+                      <Button onClick = {this.onLogin}>Login</Button> <Button id="clearFields" onClick={this.clearFields}>Clear</Button><br/><br/>
+                      <br/>
                       <br/>
                     <Table>
                     <thead>

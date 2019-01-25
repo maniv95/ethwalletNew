@@ -1,10 +1,11 @@
+/*eslint-disable*/
 //--------------------------------------------------------------Beginning-Of-Code-------------------------------------------------------//
 //--------Node-Module-For-Keystore -------//
 const keythereum = require("keythereum");
 //--------Web3---------//
 var Web3 = require('web3');
 //----------Initialising-RPC-Port------------//
-var web3 = new Web3(new Web3.providers.HttpProvider("http://192.168.0.115:8545"));
+var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 //------------Node-Module-For-File-Download-----------------//
 const fileDownload = require('react-file-download');
 //------------Gas-Price-------------//
@@ -41,30 +42,43 @@ function LoginWithKeyStoreFile(KeyStore,Password){
     var address= khex.concat(json.address);
     var account = web3.personal.unlockAccount(address,Password);
     sweetAlert("Logged In",address,"success");
-    console.log(account);
 }
 exports.LoginWithKeyStoreFile=LoginWithKeyStoreFile;
 //----------------Check-Balance---------------------//
 function ViewBalance(BlockchainAddress){
 	var bal = web3.eth.getBalance(BlockchainAddress);
-	var Bal = web3.toWei(bal,'ether');
+	var Bal = web3.fromWei(bal,'ether');
 	return Bal.toString();
 }
 exports.ViewBalance=ViewBalance;
+//------------Estimate-Gas-For-Transaction-------//
+function EstimateGas(ToAdd,Amount){
+	var amount = web3.toWei(Amount, "ether");
+	var estGas = web3.eth.estimateGas({to:ToAdd,data:"0x"});
+	var final =  estGas.toString();
+	return final;
+	// return JSON.stringify(est);
+}
+exports.EstimateGas =  EstimateGas;
 //--------------Sending-Transactions----------------//
 function SendTx(FromAdd,ToAdd,amt,Password,gas){
 	var unlockAccount = web3.personal.unlockAccount(FromAdd,Password);
-	console.log("unlockAccount Success",FromAdd,unlockAccount);
-	var Amount = web3.toWei(amt, "ether");
-	var txHash = web3.eth.sendTransaction({from:FromAdd,to:ToAdd, value:Amount,gas:gas});
-	sweetAlert("Done","Transaction Sent","success");
-	return txHash;
+	var amount = web3.toWei(amt, "ether");
+	var bal = web3.eth.getBalance(FromAdd);
+	var balance = web3.fromWei(bal,'ether');
+	if (balance !== 0 && balance >= amount){
+		var txHash = web3.eth.sendTransaction({from:FromAdd,to:ToAdd, value:amount,gas:gas});
+		sweetAlert("Done","Transaction Sent","success");
+		return txHash;
+	}
+	else{
+		sweetAlert("Insufficient Funds","Tranasaction Failed","error");
+	}
 }
 exports.SendTx=SendTx;
 //----------------------Transfer-Entire-Balance------------------//
 function SendEntireBalance(FromAdd,ToAdd,Password,gas){
 	var unlockAccount = web3.personal.unlockAccount(FromAdd,Password);
-	console.log(unlockAccount);
     var price = web3.eth.gasPrice;
     var balance = web3.eth.getBalance(FromAdd);
     var value = balance.minus(gas * price);

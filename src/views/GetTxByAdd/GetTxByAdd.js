@@ -14,6 +14,7 @@ class GetTxByAdd extends Component {
         this.updateEndBlockNumber = this.updateEndBlockNumber.bind(this);
         this.updateBCAddress = this.updateBCAddress.bind(this);
         this.onGetTxByAddress=this.onGetTxByAddress.bind(this);
+        this.clearFields = this.clearFields.bind(this);
     }
     updateGTxHash(e){
       this.setState({GTxHash: e.target.value});
@@ -35,6 +36,13 @@ class GetTxByAdd extends Component {
         console.log(error);
       }
     }
+    clearFields = () => { 
+        this.setState({
+          BCAddress:'',
+          startBlockNumber:'',
+          endBlockNumber:''
+        });
+      }
     render(){
       return(
         <div className="App">
@@ -46,16 +54,17 @@ class GetTxByAdd extends Component {
                   <CardBody>
                     <Form>
                       <b>Enter Blockchain Address</b><br/><br/>
-                      <input type="text" value={this.state.BCAddress} onChange={this.updateBCAddress} placeholder="Enter Blockchain Address"/><br/><br/>
+                      <input type="text" value={this.state.BCAddress} onChange={this.updateBCAddress} placeholder="Enter Address"/><br/><br/>
                       <b>Start Block Number</b><br/><br/>
-                      <input type="text" value={this.state.startBlockNumber} onChange={this.updateStartBlockNumber} placeholder="Enter StartBlockNumber"/>
+                      <input type="text" value={this.state.startBlockNumber} onChange={this.updateStartBlockNumber} placeholder="Enter Start Number"/>
                       <br/>
                       <br/>
                       <b>End Block Number</b><br/><br/>
-                      <input type="text" value={this.state.endBlockNumber} onChange={this.updateEndBlockNumber} placeholder="Enter EndBlockNumber"/>
+                      <input type="text" value={this.state.endBlockNumber} onChange={this.updateEndBlockNumber} placeholder="Enter End Number"/>
                     </Form>
                       <br/>
                     <Button onClick={this.onGetTxByAddress}>Get Transactions</Button>
+                    <Button name="clearFields" onClick={this.clearFields}>Clear</Button>
                     <br/><br/>
                   <br/>
                   </CardBody>
