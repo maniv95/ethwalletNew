@@ -7,7 +7,8 @@ class CreateAccount extends Component{
       super(props)
       this.state = {
         Password:'',
-        PrivateKey:'null'
+        PrivateKey:'null',
+        loading:true
       }
       this.updatePassword = this.updatePassword.bind(this);
       this.onCreate = this.onCreate.bind(this);
@@ -16,10 +17,14 @@ class CreateAccount extends Component{
   updatePassword(a){
       this.setState({Password: a.target.value});
     }
+    componentDidMount(){
+    this.setState({loading: false})
+}
   clearFields = () => { 
     this.setState({
       Password:'',
-      PrivateKey:'null'
+      PrivateKey:'null',
+      loading: true
     });
   }
   onCreate = async () => {

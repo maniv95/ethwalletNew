@@ -16,14 +16,9 @@ class Login extends Component{
       this.updatePasswordWhenLogin = this.updatePasswordWhenLogin.bind(this);
       this.onLogin = this.onLogin.bind(this);
       this.clearFields = this.clearFields.bind(this);
-      this.resetFile =  this.resetFile.bind(this);
   }
     updatePasswordWhenLogin(d){
       this.setState({Password1: d.target.value});
-    }
-    resetFile = () => {
-      const file = document.querySelector('.file');
-      file.value = '';
     }
     clearFields = () => { 
       this.setState({
