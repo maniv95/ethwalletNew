@@ -2,6 +2,8 @@
 //--------------------------------------------------------------Beginning-Of-Code-------------------------------------------------------//
 //--------Node-Module-For-Keystore -------//
 const keythereum = require("keythereum");
+//--------------Input-Data-Decoder-Using-Abi-----------//
+const InputDataDecoder = require('ethereum-input-data-decoder');
 //--------Web3---------//
 var Web3 = require('web3');
 //----------Initialising-RPC-Port------------//
@@ -13,7 +15,7 @@ var gas=3000000;
 exports.gas=gas;
 //----Sweet-Alerts------//
 var sweetAlert = require('sweetalert');
-// var swal = require('sweetalert');
+var swal = require('sweetalert');
 //-----------KeyStore-Generation-And-Private-Key-Extraction---------------//
 function KeyStoreGen(Password){
 	var params = { keyBytes: 32, ivBytes: 16 };
@@ -145,4 +147,30 @@ function getTxByAddress(myaddress, startBlockNumber, endBlockNumber) {
     }
 }
 exports.getTxByAddress=getTxByAddress;
-//------------------------------------------------------------------End-Of-Code-------------------------------------------------------------------//
+
+//---------------------------------------Get-Transaction-Hash-And-Input-Data-Decoder-Using-Abi-And-RawInput----------------------------------//
+function GetTxData(txHash,abi){
+	var tx = web3.eth.getTransaction(txHash);
+	// var abi=[ { "constant": true, "inputs": [ { "name": "_CertificateId", "type": "uint256" } ], "name": "GetDates", "outputs": [ { "name": "", "type": "string", "value": "" }, { "name": "", "type": "string", "value": "" }, { "name": "", "type": "string", "value": "" }, { "name": "", "type": "string", "value": "" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "_CertificateId", "type": "uint256" }, { "name": "_LawyerName", "type": "string" }, { "name": "_WorkingStatus", "type": "string" }, { "name": "_LawyerType", "type": "string" }, { "name": "_GeneratedDate", "type": "string" } ], "name": "LawyerDetail", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [ { "name": "_CertificateId", "type": "uint256" } ], "name": "GetLawyerDetails", "outputs": [ { "name": "", "type": "string", "value": "" }, { "name": "", "type": "string", "value": "" }, { "name": "", "type": "string", "value": "" }, { "name": "", "type": "string", "value": "" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "_CertificateId", "type": "uint256" }, { "name": "_LawyerRegistrationDate", "type": "string" }, { "name": "_LawyerRegistrationExpiryDate", "type": "string" }, { "name": "_Target", "type": "string" }, { "name": "_SignatureId", "type": "string" } ], "name": "Date", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "msg", "type": "string" }, { "indexed": false, "name": "LawyerName", "type": "string" }, { "indexed": false, "name": "WorkingStatus", "type": "string" }, { "indexed": false, "name": "LawyerType", "type": "string" }, { "indexed": false, "name": "GeneratedDate", "type": "string" } ], "name": "RegCert1", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "msg", "type": "string" }, { "indexed": false, "name": "LawyerRegistrationDate", "type": "string" }, { "indexed": false, "name": "LawyerRegistrationExpiryDate", "type": "string" }, { "indexed": false, "name": "Target", "type": "string" }, { "indexed": false, "name": "SignatureId", "type": "string" } ], "name": "RegCert2", "type": "event" } ];
+    // if (tx != null) {
+    // console.log(
+    // 	    "   Tx hash          : " + tx.hash + "\n"
+	   //    + "   nonce            : " + tx.nonce + "\n"
+	   //    + "   blockHash        : " + tx.blockHash + "\n"
+	   //    + "   blockNumber      : " + tx.blockNumber + "\n"
+	   //    + "   transactionIndex : " + tx.transactionIndex + "\n"
+	   //    + "   from             : " + tx.from + "\n" 
+	   //    + "   to               : " + tx.to + "\n"
+	   //    + "   value            : " + tx.value + "\n"
+	   //    + "   gasPrice         : " + tx.gasPrice + "\n"
+	   //    + "   gas              : " + tx.gas + "\n"
+	   //    + "   input            : " + tx.input);
+  		// }
+  		ipdata = tx.input;
+  		var obj = JSON.parse(abi);
+  		const decoder = new InputDataDecoder(obj);
+		const result = decoder.decodeData(ipdata);
+		swal(JSON.stringify(result));
+}
+exports.GetTxData=GetTxData;
+//------------------------------------------------------------------End-Of-Code--------------------------------------------------------------//

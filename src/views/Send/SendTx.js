@@ -116,7 +116,7 @@ class SendTx extends Component {
                     <input type = "file" id ="FileSelect" onChange={this.onChange}/>
                 </Form><br/>
                     <div>
-                      <input type = "password" value = {this.state.Password1} onChange = {this.updatePasswordWhenLogin} placeholder=" Enter Password "/>
+                      <input type = "password" value={this.state.Password1} onChange = {this.updatePasswordWhenLogin} placeholder=" Enter Password "/>
                     </div><br/>
                       <Button onClick = {this.onLogin}>Login</Button><br/>
                   <Form>

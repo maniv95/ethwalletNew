@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Table,Grid,Button} from 'react-bootstrap';
 import { Card,CardBody,Row,Col} from 'reactstrap';
-import Main from 'views/File.js'
+import Main from 'views/File.js';
 class CreateAccount extends Component{
   constructor(props){
       super(props)
@@ -18,8 +18,8 @@ class CreateAccount extends Component{
       this.setState({Password: a.target.value});
     }
     componentDidMount(){
-    this.setState({loading: false})
-}
+      this.setState({loading: false})
+    }
   clearFields = () => { 
     this.setState({
       Password:'',

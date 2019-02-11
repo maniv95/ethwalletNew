@@ -5,6 +5,7 @@ import GetByHash from "views/GetByHash/GetTxDetails.js";
 import SendAll from "views/SendAll/SendEntireBal.js";
 import Login from "views/Login/Login.js";
 import GetByAddress from "views/GetTxByAdd/GetTxByAdd.js";
+import TxHashDet from "views/ExploreTxHash/TxHashDecode.js";
 
 var dashRoutes = [
   {
@@ -48,6 +49,12 @@ var dashRoutes = [
     name: "Details By Address",
     icon: "nc-icon nc-paper",
     component: GetByAddress
+  },
+  {
+    path: "/decodeTxHash",
+    name: "Input By TxHash",
+    icon: "nc-icon nc-paper",
+    component: TxHashDet
   },
   { redirect: true, path: "/", pathTo: "/home", name: "Home" }
 ];
