@@ -6,8 +6,7 @@ class GetDetails extends Component {
   	constructor(props){
   	    super(props)
   	    this.state = {
-  	      GTxHash:'0xf85475f59bd4b77f249f4ec5a63c225e4d15bc8f187b246c39fb3596f3efe4f3',
-          // '0x67b27dcda20405bfb82f662d2f3e76629d106a878319e26552a6a1158a3ce258', 
+  	      GTxHash:'0x206adec279867f8e27bc49b076840b5b6e031e769cbeab81b2e8817f2044ebd2',
   	      TxDetails:'',
   	      txn:'',
   	      key:'',
