@@ -155,7 +155,7 @@ function GetTxData(txHash,abi){
 		abiDecoder.addABI(abi);
 		const data = tx.input;
 		const decodedData = abiDecoder.decodeMethod(data);
-		swal("Decoded Data \n",JSON.stringify(decodedData));
+		sweetAlert("Decoded Data ",JSON.stringify(decodedData),"success");
 }
 exports.GetTxData=GetTxData;
 //------------------------------------------------------------------End-Of-Code--------------------------------------------------------------//
