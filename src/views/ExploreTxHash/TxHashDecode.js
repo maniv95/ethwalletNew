@@ -40,7 +40,7 @@ class TxData extends Component{
    	clearFields = () => { 
     this.setState({
       txhash:'',
-      abi:{}
+      abi:[]
     });
     $("#FileSelect").val('');
   }
