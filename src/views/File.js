@@ -74,7 +74,7 @@ function SendTx(FromAdd,ToAdd,amt,Password,gas){
 		return txHash;
 	}
 	else{
-		sweetAlert("Insufficient Funds","Tranasaction Failed","error");
+		sweetAlert("Insufficient Funds","Transaction Failed","error");
 	}
 }
 exports.SendTx=SendTx;
@@ -86,17 +86,17 @@ function SendEntireBalance(FromAdd,ToAdd,Password,gas){
     var value = balance.minus(gas * price);
     if (value.greaterThan(0)){
         var txn = web3.eth.sendTransaction({from: FromAdd, to: ToAdd, gasPrice: price, gas: gas, value: value});
-        sweetAlert("Done","Transcation Success","success");
+        sweetAlert("Done","Transaction Success","success");
         return txn;
     }
-    sweetAlert("Insufficient Funds","Transcation Failed","error");
+    sweetAlert("Insufficient Funds","Transaction Failed","error");
     return null;
 }
 exports.SendEntireBalance=SendEntireBalance;
 //--------------Get-Transactions---------------//
 function GetTx(txHash){
 	var tx = web3.eth.getTransaction(txHash);
-	sweetAlert("Updated","Transcation Details Updated","success")
+	sweetAlert("Updated","Transaction Details Updated","success")
 	return tx;
 }
 exports.GetTx=GetTx;
